@@ -1,11 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<title>Sistem Pembelian Sapi</title>
+<link rel="stylesheet" href="Style/style.css">
 </head>
+
 <body>
-    
+
+    <h1>Sistem Pembelian & Stok Sapi</h1>
+
+    <div class="container">
+
+    <h2>Pembelian Sapi</h2>
+
+    <label>Jenis Sapi</label><br>
+        <select id="jenis">
+            <option>Pilih Jenis Sapi</option> 
+            <option value="limosin">Limosin</option>
+            <option value="brahman">Brahman</option>
+            <option value="simental">Simental</option>
+            <option value="angus">Angus</option>
+        </select><br>
+
+    <label>Berat</label><br>
+    <input type="number" id="berat"><br>
+
+    <label>Umur</label><br>
+    <input type="number" id="umur"><br>
+
+    <button id="tambahBtn">Tambah Sapi</button>
+
+    </div>
+
+    <div id="totalStok">
+        <p>Total Stok Sapi: <span id="totalJumlah">0</span></p>
+        <p>Total Nilai Stok: <span id="totalNilai">Rp 0</span></p>
+    </div>
+
+    <h2>Data Stok Sapi</h2>
+
+    <table>
+    <thead>
+    <tr>
+    <th>No</th>
+    <th>ID</th>
+    <th>Jenis</th>
+    <th>Berat</th>
+    <th>Harga</th>
+    <th>Umur</th>
+    <th>tanggal Beli</th>
+    <th></th>
+    </tr>
+    </thead>
+
+    <tbody id="tabelSapi"></tbody>
+
+    </table>
+
+<script src="script.js"></script>
+
 </body>
 </html>
