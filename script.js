@@ -14,7 +14,11 @@ function tambahSapi() {
     const HargaSapi = hargaSapi[hargaSapi.findIndex(item => item.jenis === JenisSapi)].harga;
 
     if (JenisSapi && BeratSapi && UmurSapi && HargaSapi) {
-        const id = Math.floor(Math.random() * 1000);
+         let id 
+         do {
+            id = "SAPI-" + Math.floor(Math.random() * 100);
+            } while (sapi.some(item => item.idsapi === id));
+
         sapi.push({
             idsapi: id,
             Jenis: JenisSapi,
@@ -51,7 +55,7 @@ function tampilkanSapi() {
         tombolHapus.addEventListener("click", function() {
             hapusSapi(index);
         });
-        
+
         kolom.appendChild(tombolHapus);
     });
 }
