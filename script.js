@@ -61,6 +61,14 @@ function tampilkanSapi() {
         row.insertCell(6).textContent = new Date().toLocaleDateString('id-ID');
         const kolom = row.insertCell(7);
             const tombolHapus = document.createElement("button");
+            const tombolEdit = document.createElement("button");
+tombolEdit.textContent = "Edit";
+
+tombolEdit.onclick = function () {
+    editSapi(index);
+};
+
+kolom.appendChild(tombolEdit);
             tombolHapus.textContent = "Hapus";
         
         tombolHapus.onclick = () => {
@@ -79,3 +87,57 @@ function hitungTotal() {
 }
 
 document.getElementById("tambahBtn").addEventListener("click", tambahSapi);
+
+function editSapi(index) {
+    const tableBody = document.getElementById("tabelSapi");
+    const row = tableBody.rows[index];
+    const data = sapi[index];
+
+    // ubah jadi input
+    row.cells[2].innerHTML = `<input value="${data.Jenis}">`;
+    row.cells[3].innerHTML = `<input value="${parseFloat(data.Berat)}">`;
+    row.cells[5].innerHTML = `<input value="${data.Umur}">`;
+
+    // tombol simpan
+    const kolomAksi = row.cells[7];
+    kolomAksi.innerHTML = "";
+
+    const tombolSimpan = document.createElement("button");
+    tombolSimpan.textContent = "Simpan";
+
+    tombolSimpan.onclick = function () {
+        const jenisBaru = row.cells[2].children[0].value;
+        const beratBaru = parseFloat(row.cells[3].children[0].value);
+        const umurBaru = parseFloat(row.cells[5].children[0].value);
+
+        const dataJenis = daftarHargaDasar.find(item => item.jenis === jenisBaru);
+
+        const beratEstimasi = Math.pow((beratBaru + 22), 2) / 100;
+
+        let hargaPerKg = dataJenis ? dataJenis.harga : 50000;
+
+        if (umurBaru < 1) {
+            hargaPerKg -= 15000;
+        } else if (umurBaru >= 2 && umurBaru <= 3) {
+            hargaPerKg += 10000;
+        } else if (umurBaru > 5) {
+            hargaPerKg -= 5000;
+        }
+
+        const totalHarga = Math.round(beratEstimasi * hargaPerKg);
+
+        // update data
+        sapi[index] = {
+            ...sapi[index],
+            Jenis: jenisBaru,
+            Berat: beratEstimasi.toFixed(1) + " kg",
+            Umur: umurBaru,
+            Harga: totalHarga
+        };
+
+        tampilkanSapi();
+        hitungTotal();
+    };
+
+    kolomAksi.appendChild(tombolSimpan);
+}
