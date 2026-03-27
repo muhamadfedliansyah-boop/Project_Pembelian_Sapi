@@ -62,9 +62,9 @@ function tampilkanSapi() {
         const kolom = row.insertCell(7);
             const tombolHapus = document.createElement("button");
             const tombolEdit = document.createElement("button");
-tombolEdit.textContent = "Edit";
+    tombolEdit.textContent = "Edit";
 
-tombolEdit.onclick = function () {
+    tombolEdit.onclick = function () {
     editSapi(index);
 };
 
@@ -72,9 +72,11 @@ kolom.appendChild(tombolEdit);
             tombolHapus.textContent = "Hapus";
         
         tombolHapus.onclick = () => {
-            sapi.splice(index, 1);
-            tampilkanSapi();
-            hitungTotal();
+            if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                sapi.splice(index, 1);
+                tampilkanSapi();
+                hitungTotal();
+            }
         };
         kolom.appendChild(tombolHapus);
     });
